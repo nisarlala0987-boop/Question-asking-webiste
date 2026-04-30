@@ -1,0 +1,291 @@
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500;1,300;1,500&family=Outfit:wght@300;400;500&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Outfit',sans-serif;background:#FAF8F5;color:#0F0D0B;min-height:100vh;padding:0}
+.wrap{max-width:640px;margin:0 auto;padding:2.5rem 1.5rem 3rem}
+.brand{text-align:center;margin-bottom:2.5rem}
+.brand-line{width:48px;height:1px;background:#B8955A;margin:0 auto 1.2rem}
+.brand h1{font-family:'Cormorant Garamond',serif;font-size:2.6rem;font-weight:300;letter-spacing:0.04em;color:#0F0D0B;line-height:1.1}
+.brand h1 span{font-style:italic;color:#B8955A}
+.brand p{font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;color:#7A756E;margin-top:0.6rem}
+.step{display:none;animation:rise 0.45s cubic-bezier(.22,.68,0,1.2)}
+.step.active{display:block}
+@keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.prog{display:flex;gap:6px;margin-bottom:2.5rem}
+.prog-dot{flex:1;height:3px;background:#E8E4DE;border-radius:2px;transition:background 0.3s}
+.prog-dot.done{background:#B8955A}
+.step-meta{display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem}
+.step-num{width:28px;height:28px;border:1px solid #B8955A;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.68rem;color:#B8955A;font-weight:500;flex-shrink:0}
+.step-q{font-family:'Cormorant Garamond',serif;font-size:1.55rem;font-weight:300;color:#0F0D0B;line-height:1.25}
+.opts{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:2rem}
+.opt{background:#fff;border:1px solid #E8E4DE;border-radius:14px;padding:1.1rem 0.8rem;cursor:pointer;text-align:center;transition:border-color 0.18s,background 0.18s;position:relative;overflow:hidden}
+.opt:hover{border-color:#D4B07A;background:#FFFDF9}
+.opt.sel{border-color:#B8955A;background:#FFFDF9}
+.opt.sel::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:#B8955A}
+.opt-icon{width:36px;height:36px;border-radius:50%;background:#F4F1EC;display:flex;align-items:center;justify-content:center;margin:0 auto 0.6rem;font-size:16px}
+.opt-label{font-size:0.82rem;font-weight:500;color:#0F0D0B;display:block;margin-bottom:0.2rem}
+.opt-hint{font-size:0.67rem;color:#7A756E;line-height:1.35;display:block}
+.nav{display:flex;justify-content:space-between;align-items:center}
+.btn-back{background:none;border:none;color:#7A756E;font-family:'Outfit',sans-serif;font-size:0.8rem;cursor:pointer;padding:0.5rem 0;letter-spacing:0.05em}
+.btn-back:hover{color:#0F0D0B}
+.btn-next{background:#B8955A;border:none;color:#fff;font-family:'Outfit',sans-serif;font-size:0.74rem;font-weight:500;padding:0.65rem 1.8rem;border-radius:40px;cursor:pointer;letter-spacing:0.1em;text-transform:uppercase;transition:opacity 0.2s;opacity:0.3;pointer-events:none}
+.btn-next.on{opacity:1;pointer-events:all}
+.btn-next.on:hover{opacity:0.85}
+.btn-go{width:100%;background:#0F0D0B;border:none;color:#FAF8F5;font-family:'Outfit',sans-serif;font-size:0.76rem;font-weight:500;padding:1rem;border-radius:40px;cursor:pointer;letter-spacing:0.12em;text-transform:uppercase;transition:opacity 0.2s;margin-top:1rem;opacity:0.3;pointer-events:none}
+.btn-go.on{opacity:1;pointer-events:all}
+.btn-go.on:hover{opacity:0.8}
+.loading-view{text-align:center;padding:5rem 1rem}
+.loader-ring{width:44px;height:44px;border:1.5px solid #E8E4DE;border-top-color:#B8955A;border-radius:50%;animation:spin 0.9s linear infinite;margin:0 auto 1.5rem}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-title{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:300;font-style:italic;color:#0F0D0B;margin-bottom:0.4rem}
+.loading-sub{font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:#7A756E}
+.result-img-wrap{border-radius:18px;overflow:hidden;background:#F4F1EC;border:1px solid #E8E4DE;min-height:280px;display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem}
+.result-img-wrap img{width:100%;height:auto;display:block}
+.img-loader{display:flex;flex-direction:column;align-items:center;gap:0.75rem;padding:3.5rem 1rem}
+.img-loader-ring{width:28px;height:28px;border:1.5px solid #E8E4DE;border-top-color:#B8955A;border-radius:50%;animation:spin 0.9s linear infinite}
+.img-loader-txt{font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:#7A756E}
+.result-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1rem}
+.tag{font-size:0.64rem;letter-spacing:0.12em;text-transform:uppercase;color:#B8955A;border:1px solid #E8DECA;padding:0.28rem 0.7rem;border-radius:20px;background:#FFFDF9}
+.result-name{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;color:#0F0D0B;line-height:1.15;margin-bottom:0.3rem}
+.result-caption{font-size:0.82rem;color:#7A756E;font-style:italic;margin-bottom:1.5rem;line-height:1.5}
+.divider{width:100%;height:1px;background:#E8E4DE;margin-bottom:1.5rem}
+.items-title{font-size:0.63rem;letter-spacing:0.14em;text-transform:uppercase;color:#7A756E;margin-bottom:0.9rem}
+.items-grid{display:grid;gap:8px;margin-bottom:1.25rem}
+.item-row{display:flex;align-items:center;gap:0.75rem;padding:0.7rem 0.9rem;background:#F4F1EC;border-radius:10px}
+.item-icon{width:30px;height:30px;border-radius:8px;background:#fff;border:1px solid #E8E4DE;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.item-text{font-size:0.82rem;color:#0F0D0B;line-height:1.4}
+.tip-box{border-left:2px solid #B8955A;padding:0.85rem 1rem;background:#FFFDF9;border-radius:0 10px 10px 0;margin-bottom:1.5rem}
+.tip-label{font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;color:#B8955A;margin-bottom:0.3rem}
+.tip-text{font-size:0.82rem;color:#7A756E;line-height:1.5;font-style:italic}
+.btn-restart{width:100%;background:none;border:1px solid #E8E4DE;color:#7A756E;font-family:'Outfit',sans-serif;font-size:0.72rem;padding:0.75rem;border-radius:40px;cursor:pointer;letter-spacing:0.1em;text-transform:uppercase;transition:all 0.2s}
+.btn-restart:hover{border-color:#0F0D0B;color:#0F0D0B}
+</style>
+
+<div class="wrap">
+  <div class="brand">
+    <div class="brand-line"></div>
+    <h1>Your daily <span>fit</span></h1>
+    <p>Mood · Occasion · Vibe → Your outfit</p>
+  </div>
+
+  <div class="prog">
+    <div class="prog-dot" id="pd1"></div>
+    <div class="prog-dot" id="pd2"></div>
+    <div class="prog-dot" id="pd3"></div>
+  </div>
+
+  <div class="step active" id="s1">
+    <div class="step-meta"><div class="step-num">01</div><div class="step-q">How are you feeling today?</div></div>
+    <div class="opts">
+      <button class="opt" onclick="pick(1,'mood','confident',this)"><div class="opt-icon">🔥</div><span class="opt-label">Confident</span><span class="opt-hint">I'm that person today</span></button>
+      <button class="opt" onclick="pick(1,'mood','chill',this)"><div class="opt-icon">🌿</div><span class="opt-label">Chill</span><span class="opt-hint">No effort needed</span></button>
+      <button class="opt" onclick="pick(1,'mood','romantic',this)"><div class="opt-icon">🌸</div><span class="opt-label">Romantic</span><span class="opt-hint">Soft &amp; dreamy</span></button>
+      <button class="opt" onclick="pick(1,'mood','edgy',this)"><div class="opt-icon">⚡</div><span class="opt-label">Edgy</span><span class="opt-hint">Dark &amp; moody</span></button>
+      <button class="opt" onclick="pick(1,'mood','playful',this)"><div class="opt-icon">🎨</div><span class="opt-label">Playful</span><span class="opt-hint">Fun &amp; colorful</span></button>
+      <button class="opt" onclick="pick(1,'mood','polished',this)"><div class="opt-icon">💼</div><span class="opt-label">Polished</span><span class="opt-hint">Sharp &amp; refined</span></button>
+    </div>
+    <div class="nav"><span></span><button class="btn-next" id="n1" onclick="go(2)">Next →</button></div>
+  </div>
+
+  <div class="step" id="s2">
+    <div class="step-meta"><div class="step-num">02</div><div class="step-q">What's on the agenda today?</div></div>
+    <div class="opts">
+      <button class="opt" onclick="pick(2,'occasion','casual',this)"><div class="opt-icon">☕</div><span class="opt-label">Casual out</span><span class="opt-hint">Errands, café, brunch</span></button>
+      <button class="opt" onclick="pick(2,'occasion','work',this)"><div class="opt-icon">💻</div><span class="opt-label">Work</span><span class="opt-hint">Office or meetings</span></button>
+      <button class="opt" onclick="pick(2,'occasion','date',this)"><div class="opt-icon">🕯️</div><span class="opt-label">Date night</span><span class="opt-hint">Dinner &amp; drinks</span></button>
+      <button class="opt" onclick="pick(2,'occasion','party',this)"><div class="opt-icon">🎉</div><span class="opt-label">Party</span><span class="opt-hint">Going out, dancing</span></button>
+      <button class="opt" onclick="pick(2,'occasion','home',this)"><div class="opt-icon">🛋️</div><span class="opt-label">Staying in</span><span class="opt-hint">Cozy home day</span></button>
+      <button class="opt" onclick="pick(2,'occasion','active',this)"><div class="opt-icon">🏃</div><span class="opt-label">Active</span><span class="opt-hint">Gym or outdoors</span></button>
+    </div>
+    <div class="nav"><button class="btn-back" onclick="go(1)">← Back</button><button class="btn-next" id="n2" onclick="go(3)">Next →</button></div>
+  </div>
+
+  <div class="step" id="s3">
+    <div class="step-meta"><div class="step-num">03</div><div class="step-q">Pick a vibe that speaks to you.</div></div>
+    <div class="opts">
+      <button class="opt" onclick="pick(3,'vibe','minimal',this)"><div class="opt-icon">🤍</div><span class="opt-label">Minimal</span><span class="opt-hint">Less is always more</span></button>
+      <button class="opt" onclick="pick(3,'vibe','streetwear',this)"><div class="opt-icon">🧢</div><span class="opt-label">Streetwear</span><span class="opt-hint">Sneakers &amp; oversized</span></button>
+      <button class="opt" onclick="pick(3,'vibe','classy',this)"><div class="opt-icon">🥂</div><span class="opt-label">Classy</span><span class="opt-hint">Timeless &amp; refined</span></button>
+      <button class="opt" onclick="pick(3,'vibe','boho',this)"><div class="opt-icon">🌙</div><span class="opt-label">Boho</span><span class="opt-hint">Flowy &amp; earthy</span></button>
+      <button class="opt" onclick="pick(3,'vibe','y2k',this)"><div class="opt-icon">💿</div><span class="opt-label">Y2K</span><span class="opt-hint">Nostalgic &amp; bold</span></button>
+      <button class="opt" onclick="pick(3,'vibe','dark-luxe',this)"><div class="opt-icon">🖤</div><span class="opt-label">Dark luxe</span><span class="opt-hint">Mono &amp; elevated</span></button>
+    </div>
+    <div class="nav"><button class="btn-back" onclick="go(2)">← Back</button><button class="btn-go" id="btnGo" onclick="generate()">✦ Build my fit</button></div>
+  </div>
+
+  <div class="step" id="sLoad">
+    <div class="loading-view">
+      <div class="loader-ring"></div>
+      <div class="loading-title">Curating your look…</div>
+      <div class="loading-sub" id="loadSub">Styling your outfit</div>
+    </div>
+  </div>
+
+  <div class="step" id="sResult">
+    <div id="rContent"></div>
+    <button class="btn-restart" onclick="restart()">↺ Start over</button>
+  </div>
+</div>
+
+<script>
+const A={mood:null,occasion:null,vibe:null};
+
+const DB={
+  confident:{
+    casual:{
+      minimal:{name:'The Power Neutral',caption:'Quiet confidence in tones that do all the talking.',items:['Top: Fitted white cotton button-down, sleeves rolled','Bottom: Tailored stone-beige straight trousers','Shoes: White leather loafers','Accessory: Slim gold watch','Bag: Structured nude leather tote'],tip:'Keep accessories to a single metal tone — it reads intentional, not minimal-by-accident.'},
+      streetwear:{name:'The Bold Block',caption:'Oversized energy with a confident silhouette.',items:['Top: Oversized black graphic tee (tucked front only)','Bottom: Wide-leg cargo pants in olive','Shoes: Chunky white dad sneakers','Accessory: Layered silver chains','Bag: Black crossbody bag'],tip:'One front tuck gives shape to an oversized tee without losing the streetwear vibe.'},
+      classy:{name:'The Power Suit Moment',caption:'Walk in like the meeting starts when you arrive.',items:['Top: Silk ivory camisole','Bottom: Tailored wide-leg cream trousers','Shoes: Pointed-toe beige mules','Accessory: Pearl stud earrings','Bag: Mini structured top-handle bag'],tip:'Monochrome suiting reads power without saying a word.'},
+      boho:{name:'The Desert Queen',caption:'Earthy confidence with a free-spirited soul.',items:['Top: Terracotta wrap blouse with flutter sleeves','Bottom: Wide-leg linen trousers in warm sand','Shoes: Block-heel tan sandals','Accessory: Layered turquoise necklaces','Bag: Woven raffia tote'],tip:'Stick to a warm earth palette — 3 shades max keeps boho polished.'},
+      y2k:{name:'The Y2K Boss',caption:'Early 2000s energy, but make it elevated.',items:['Top: Cropped metallic halter top','Bottom: Low-rise wide-leg trousers in caramel','Shoes: Platform sandals in nude','Accessory: Tinted oval sunglasses','Bag: Mini iridescent shoulder bag'],tip:'Balance a cropped top with a wide leg bottom — proportion is everything in Y2K.'},
+      'dark-luxe':{name:'The All-Black Authority',caption:'Monochrome, minimal, and absolutely in charge.',items:['Top: Black silk drape blouse','Bottom: Tailored black wide-leg trousers','Shoes: Black pointed-toe kitten heels','Accessory: Black leather belt, thin strap','Bag: Black structured mini bag'],tip:'Mix textures within all-black — silk, matte, leather — so the look has depth.'}
+    },
+    work:{
+      minimal:{name:'The Sharp Minimalist',caption:'Clean lines that mean business.',items:['Top: White slim-fit poplin shirt','Bottom: Charcoal grey straight-cut trousers','Shoes: Black leather oxfords','Accessory: Simple leather-strap watch','Bag: Slim leather folio bag'],tip:'Iron your collar — in minimal looks, one wrinkle is noticeable.'},
+      streetwear:{name:'The Creative Director',caption:'Office-ready with a streetwear edge.',items:['Top: White long-sleeve fitted tee under a blazer','Bottom: Dark slim jogger pants','Shoes: Clean white leather sneakers','Accessory: Oversized watch, simple chain','Bag: Backpack in black leather'],tip:'A tailored blazer over streetwear basics is the ultimate creative office move.'},
+      classy:{name:'The Boardroom Classic',caption:'Timeless, polished, and effortlessly in control.',items:['Top: Crisp light-blue Oxford shirt','Bottom: Navy tailored slim trousers','Shoes: Brown cap-toe leather shoes','Accessory: Gold cufflinks, silk tie in burgundy','Bag: Leather briefcase in tan'],tip:'Match your belt to your shoes — always. It signals attention to detail.'},
+      boho:{name:'The Artistic Professional',caption:'Creative energy meets professional poise.',items:['Top: Flowy printed blouse in muted tones','Bottom: Wide-leg trousers in warm camel','Shoes: Block-heel ankle boots','Accessory: Long pendant necklace','Bag: Structured leather tote'],tip:'Keep the print to one piece only — let everything else breathe.'},
+      y2k:{name:'The Retro Office',caption:'2000s boardroom, reimagined.',items:['Top: Ribbed fitted turtleneck in ivory','Bottom: High-waist pencil skirt in plaid','Shoes: Platform ankle boots','Accessory: Square-frame glasses','Bag: Boxy mini shoulder bag'],tip:'A turtleneck under a plaid skirt hits the Y2K professional note perfectly.'},
+      'dark-luxe':{name:'The Dark Executive',caption:'Power in monochrome, always.',items:['Top: Black turtleneck, fitted','Bottom: Black wide-leg tailored trousers','Shoes: Black leather chelsea boots','Accessory: Minimal silver ring','Bag: Black leather structured tote'],tip:'All-black in luxe fabrics reads high-end — stick to silk, wool, and leather.'}
+    },
+    date:{
+      minimal:{name:'The Quiet Romantic',caption:'Understated and magnetic.',items:['Top: Ivory slip top, thin straps','Bottom: Straight-leg cream trousers, high waist','Shoes: Strappy beige heeled sandals','Accessory: Delicate gold necklace, single pendant','Bag: Small golden clutch'],tip:'Less is more on a date — one statement piece, everything else subdued.'},
+      streetwear:{name:'The Cool Date',caption:'Effortless and a little unpredictable.',items:['Top: White fitted tee','Bottom: Dark slim-fit jeans','Shoes: White Air Force 1s or leather sneakers','Accessory: Gold chain, simple','Bag: Small leather crossbody'],tip:'Tuck the tee and cuff the jeans once — instant style upgrade.'},
+      classy:{name:'The Evening Icon',caption:'Classic glamour for a perfect night out.',items:['Top: Black wrap midi dress with V-neckline','Bottom: (dress)','Shoes: Black pointed stiletto heels','Accessory: Diamond stud earrings','Bag: Black satin clutch'],tip:'A wrap dress flatters every body and reads effortlessly chic.'},
+      boho:{name:'The Garden Date',caption:'Romantic, earthy, and free.',items:['Top: Floral wrap midi dress in rust and terracotta','Bottom: (dress)','Shoes: Tan block heel sandals','Accessory: Gold layered necklaces','Bag: Small woven bag'],tip:'Stick to warm florals — they photograph beautifully on dates.'},
+      y2k:{name:'The Throwback Date Night',caption:'Flirty, fun, and fully Y2K.',items:['Top: Strappy butterfly-print cami','Bottom: Low-rise flared trousers in denim','Shoes: Platform mules','Accessory: Hoop earrings, oversized','Bag: Tiny rhinestone shoulder bag'],tip:'Y2K works best when you commit — go full-send on one statement piece.'},
+      'dark-luxe':{name:'The After-Dark',caption:'Dark, luxe, and unforgettable.',items:['Top: Black satin slip dress, midi length','Bottom: (dress)','Shoes: Black strappy heeled sandals','Accessory: Silver drop earrings','Bag: Black velvet mini bag'],tip:'Satin and velvet together in all-black is the ultimate dark-luxe date move.'}
+    },
+    party:{
+      minimal:{name:'The Effortless Party',caption:'You showed up and somehow outshone everyone.',items:['Top: White halter top, minimal cut','Bottom: Tailored black trousers, high waist','Shoes: Strappy black heels','Accessory: Thin gold choker','Bag: Small black clutch'],tip:'At parties, confidence is the accessory. Keep the outfit clean and simple.'},
+      streetwear:{name:'The Streetwear Party',caption:'Showing up different, on purpose.',items:['Top: Graphic statement tee, tucked','Bottom: Baggy dark denim, cuffed once','Shoes: Chunky sneakers or Air Jordans','Accessory: Cap worn backwards, gold chain','Bag: Fanny pack in leather'],tip:'The backwards cap is a vibe — only works if the rest is clean and fitted.'},
+      classy:{name:'The Gala Entrance',caption:'You dressed for the occasion and then some.',items:['Top: Sequined blazer in champagne','Bottom: Black satin wide-leg trousers','Shoes: Gold strappy heels','Accessory: Statement earrings in gold','Bag: Gold minaudière'],tip:'A sequined blazer is the ultimate party piece — wear it over a simple base.'},
+      boho:{name:'The Festival Goddess',caption:'Free spirit, full glam.',items:['Top: Crochet crop top in cream','Bottom: Flowy tiered maxi skirt in terracotta','Shoes: Platform sandals with ankle wrap','Accessory: Stacked bangles, feather earrings','Bag: Fringe crossbody bag'],tip:'Layered accessories are the boho cheat code — the more the better here.'},
+      y2k:{name:'The Y2K Party Queen',caption:'2000s princess energy, fully unleashed.',items:['Top: Iridescent crop top, spaghetti straps','Bottom: Low-rise mini skirt in metallic','Shoes: Platform boots, knee-high','Accessory: Butterfly hair clips, rhinestone hoops','Bag: Tiny metallic baguette bag'],tip:'Y2K party looks are about maximalism — do not hold back on the shine.'},
+      'dark-luxe':{name:'The Dark Gala',caption:'Commanding the room in all black.',items:['Top: Black velvet off-shoulder mini dress','Bottom: (dress)','Shoes: Black sculptural heel sandals','Accessory: Silver ear cuff, statement ring','Bag: Black velvet pouch clutch'],tip:'Velvet and an unusual heel shape make all-black feel luxe, not boring.'}
+    },
+    home:{
+      minimal:{name:'The Elevated Lounger',caption:'Staying in but make it intentional.',items:['Top: Soft fitted white crewneck','Bottom: Matching off-white wide-leg lounge pants','Shoes: Cream leather slippers','Accessory: Gold stud earrings (yes, at home)','Bag: N/A'],tip:'A matching lounge set in a neutral tone feels luxe even in your living room.'},
+      streetwear:{name:'The Cozy Hype',caption:'Off-duty streetwear at its finest.',items:['Top: Oversized hoodie in washed grey','Bottom: Matching sweatpants, same tone','Shoes: Slides in black or white','Accessory: Baseball cap, worn forward','Bag: N/A'],tip:'The matching sweatsuit is the streetwear home uniform — get a good one.'},
+      classy:{name:'The Refined Home Day',caption:'Even at home, effortlessly put together.',items:['Top: Silk robe cardigan in dusty rose','Bottom: Satin wide-leg lounge pants','Shoes: Flat mule slippers in velvet','Accessory: Small gold hoops','Bag: N/A'],tip:'A silk robe over a lounge set is the classiest at-home look there is.'},
+      boho:{name:'The Boho Nest',caption:'Earthy, soft, and perfectly undone.',items:['Top: Oversized linen tunic in warm sand','Bottom: Soft harem pants in terracotta','Shoes: Barefoot or beaded sandals','Accessory: Rings on multiple fingers','Bag: N/A'],tip:'Linen wrinkles are part of the boho charm — embrace them.'},
+      y2k:{name:'The Y2K Chill',caption:'2000s girl at home, still iconic.',items:['Top: Printed cropped baby tee','Bottom: Low-rise velour tracksuit bottoms in pink','Shoes: Fluffy sliders','Accessory: Mini butterfly clips in hair','Bag: N/A'],tip:'Velour tracksuits are the Y2K home essential — get them in a fun color.'},
+      'dark-luxe':{name:'The Dark Cozy',caption:'Moody, minimal, and magnificently cozy.',items:['Top: Oversized black cashmere crewneck','Bottom: Black straight-leg lounge pants','Shoes: Black leather sliders','Accessory: Minimal silver ring','Bag: N/A'],tip:'Black cashmere is the peak dark-luxe home look — it always feels expensive.'}
+    },
+    active:{
+      minimal:{name:'The Clean Athlete',caption:'Performance meets aesthetic.',items:['Top: White fitted performance tee','Bottom: Black high-waist leggings, no logo','Shoes: Clean all-white running sneakers','Accessory: Simple silicone sports watch','Bag: Minimal canvas gym tote'],tip:'All-white or all-black activewear always reads cleaner than mixed colours.'},
+      streetwear:{name:'The Gym Flex',caption:'Showing up to the gym like it\'s a shoot.',items:['Top: Oversized graphic gym tee, cut at sleeves','Bottom: Black joggers with contrast stripe','Shoes: Retro basketball sneakers','Accessory: Snapback cap, wireless earbuds','Bag: Drawstring gym bag in black'],tip:'Cut the sleeves off an old tee — instant gym streetwear hack.'},
+      classy:{name:'The Country Club',caption:'Sport as a lifestyle, elevated.',items:['Top: Fitted white polo shirt','Bottom: Pleated tennis skirt or chino shorts in beige','Shoes: Classic white leather court sneakers','Accessory: Visor cap, small stud earrings','Bag: Canvas tote with leather handles'],tip:'The polo-and-tennis-skirt combo is the most elevated activewear look.'},
+      boho:{name:'The Yoga Goddess',caption:'Move with flow, look with intention.',items:['Top: Flowy cropped tank in sage green','Bottom: High-waist printed yoga leggings','Shoes: Barefoot trainers or minimal sandals','Accessory: Crystal or wooden bead bracelet','Bag: Large tote in natural canvas'],tip:'Earthy tones in activewear always look intentional, never try-hard.'},
+      y2k:{name:'The Retro Athlete',caption:'2000s tracksuit energy at the gym.',items:['Top: Cropped zip-up track jacket in baby blue','Bottom: Matching flared track pants','Shoes: Retro runners in white and silver','Accessory: Thick headband, small hoop earrings','Bag: Matching sport bag'],tip:'A matching track set is the Y2K gym essential — get it in a bold colour.'},
+      'dark-luxe':{name:'The Dark Athletic',caption:'Training in all-black everything.',items:['Top: Black compression long-sleeve top','Bottom: Black high-waist training leggings','Shoes: Black training sneakers, minimal logo','Accessory: Black silicone watch, black earbuds','Bag: Black gym duffel, minimal'],tip:'All-black gym wear hits differently — pick fabrics with different sheens.'}
+    }
+  }
+};
+
+function getOutfit(){
+  try{
+    const moodData=DB[A.mood];
+    if(!moodData)throw 0;
+    const occData=moodData[A.occasion];
+    if(!occData)throw 0;
+    const fit=occData[A.vibe];
+    if(!fit)throw 0;
+    return fit;
+  }catch(e){
+    return {name:'The Signature Look',caption:'Effortless style, curated for you.',items:['Top: Fitted white tee, premium cotton','Bottom: Dark slim-fit denim jeans','Shoes: White leather sneakers','Accessory: Minimal gold chain','Bag: Structured leather tote in camel'],tip:'A half-tuck adds shape to any outfit without overthinking it.'};
+  }
+}
+
+const moodLabels={confident:'Confident',chill:'Chill',romantic:'Romantic',edgy:'Edgy',playful:'Playful',polished:'Polished'};
+const occLabels={casual:'Casual out',work:'Work',date:'Date night',party:'Party',home:'At home',active:'Active'};
+const vibeLabels={minimal:'Minimal',streetwear:'Streetwear',classy:'Classy',boho:'Boho',y2k:'Y2K','dark-luxe':'Dark luxe'};
+const itemIcons={'top':'👕','bottom':'👖','shoes':'👟','accessory':'✨','bag':'👜','dress':'👗','jacket':'🧥','pants':'👖'};
+function iconFor(t){const low=t.toLowerCase();for(const[k,v]of Object.entries(itemIcons)){if(low.startsWith(k))return v;}return '🪡';}
+
+function pick(step,key,val,btn){
+  A[key]=val;
+  document.getElementById('s'+step).querySelectorAll('.opt').forEach(b=>b.classList.remove('sel'));
+  btn.classList.add('sel');
+  if(step<3){const n=document.getElementById('n'+step);if(n)n.classList.add('on');}
+  else{document.getElementById('btnGo').classList.add('on');}
+  for(let i=1;i<=step;i++)document.getElementById('pd'+i).classList.add('done');
+}
+
+function go(step){
+  document.querySelectorAll('.step').forEach(s=>s.classList.remove('active'));
+  document.getElementById('s'+step).classList.add('active');
+}
+
+function generate(){
+  if(!A.mood||!A.occasion||!A.vibe)return;
+  document.querySelectorAll('.step').forEach(s=>s.classList.remove('active'));
+  document.getElementById('sLoad').classList.add('active');
+  setTimeout(()=>{
+    const fit=getOutfit();
+    renderResult(fit);
+    loadImg(fit);
+  },1400);
+}
+
+function renderResult(fit){
+  const tags=[moodLabels[A.mood],occLabels[A.occasion],vibeLabels[A.vibe]].filter(Boolean).map(t=>`<span class="tag">${t}</span>`).join('');
+  const items=fit.items.map(i=>`<div class="item-row"><div class="item-icon">${iconFor(i)}</div><div class="item-text">${i}</div></div>`).join('');
+  document.getElementById('rContent').innerHTML=`
+    <div class="result-img-wrap" id="imgWrap">
+      <div class="img-loader"><div class="img-loader-ring"></div><div class="img-loader-txt">Finding your look</div></div>
+    </div>
+    <div class="result-tags">${tags}</div>
+    <div class="result-name">${fit.name}</div>
+    <div class="result-caption">${fit.caption}</div>
+    <div class="divider"></div>
+    <div class="items-title">The pieces</div>
+    <div class="items-grid">${items}</div>
+    <div class="tip-box"><div class="tip-label">Stylist tip</div><div class="tip-text">${fit.tip}</div></div>`;
+  document.querySelectorAll('.step').forEach(s=>s.classList.remove('active'));
+  document.getElementById('sResult').classList.add('active');
+}
+
+function loadImg(fit){
+  const wrap=document.getElementById('imgWrap');
+  if(!wrap)return;
+  const q=encodeURIComponent(`${A.vibe} ${A.mood} fashion outfit`);
+  const urls=[
+    `https://source.unsplash.com/600x750/?${q}`,
+    `https://source.unsplash.com/600x750/?fashion,${encodeURIComponent(A.vibe)}`,
+    `https://source.unsplash.com/600x750/?fashion,style,outfit`
+  ];
+  let done=false;
+  const tryUrl=(i)=>{
+    if(i>=urls.length||done){showFallback(wrap,fit);return;}
+    const img=new Image();
+    const t=setTimeout(()=>{if(!done)tryUrl(i+1);},6000);
+    img.onload=()=>{clearTimeout(t);if(!done&&wrap){done=true;wrap.innerHTML=`<img src="${urls[i]}" alt="outfit" style="width:100%;display:block"/>`;}}
+    img.onerror=()=>{clearTimeout(t);tryUrl(i+1);}
+    img.src=urls[i];
+  };
+  tryUrl(0);
+}
+
+function showFallback(wrap,fit){
+  const palettes={minimal:'#F5F4F0,#2C2C2A',streetwear:'#1A1A2E,#E8E4DE',classy:'#1C1408,#C9A96E',boho:'#3D2B1A,#D4845A',y2k:'#1A0A2E,#D4A0C0','dark-luxe':'#0A0A0A,#888888'};
+  const [bg,acc]=(palettes[A.vibe]||'#F4F1EC,#B8955A').split(',');
+  const emojis={confident:'🔥',chill:'🌿',romantic:'🌸',edgy:'⚡',playful:'🎨',polished:'💼'};
+  wrap.innerHTML=`<div style="width:100%;min-height:260px;background:${bg};display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2.5rem;text-align:center;border-radius:18px">
+    <div style="font-size:2.6rem;margin-bottom:1rem">${emojis[A.mood]||'✨'}</div>
+    <div style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;font-style:italic;color:${acc};margin-bottom:0.4rem">${fit.name}</div>
+    <div style="font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:${acc};opacity:0.6">${vibeLabels[A.vibe]} · ${moodLabels[A.mood]}</div>
+  </div>`;
+}
+
+function restart(){
+  A.mood=null;A.occasion=null;A.vibe=null;
+  document.querySelectorAll('.opt').forEach(b=>b.classList.remove('sel'));
+  document.querySelectorAll('.btn-next').forEach(b=>b.classList.remove('on'));
+  document.getElementById('btnGo').classList.remove('on');
+  document.getElementById('rContent').innerHTML='';
+  for(let i=1;i<=3;i++)document.getElementById('pd'+i).classList.remove('done');
+  document.querySelectorAll('.step').forEach(s=>s.classList.remove('active'));
+  document.getElementById('s1').classList.add('active');
+}
+</script>
